@@ -56,10 +56,9 @@
 #define GPIO_PORT_SWITCH GPIOA
 #define GPIO_PIN_PCHG_RELAY GPIO_ODR_4
 #define GPIO_PIN_CONTACTOR_RELAY GPIO_ODR_3
-#define GPIO_PIN_SWITCH GPIO_IDR_0
 #define ON 1
 #define OFF 0
-#define Switch_PIN GPIO_PORT_SWITCH->IDR & GPIO_PIN_SWITCH
+#define Switch_PIN GPIO_PORT_SWITCH->IDR & GPIO_PIN_0
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -192,19 +191,6 @@ int main(void)
 //  int state = 0;
   while (1)
   {
-//	  SetWaitOneSec();
-//	  if (time_expired(OneSec.delayTime, OneSec.currentTime)){
-//		  Voltage_Print();
-//		  if (relaystate){
-//			  relaystate = 0;
-//		  }else{
-//			  relaystate = 1;
-//		  }
-//		  OneSec.activeFlag = 0;
-//	  }
-//	  PreChargeRelayCTRL(relaystate);
-//	  ContactorRelayCTRL(relaystate);
-
 
 	  if (killSwitchFlagRE){
 		  int pin = 0;
@@ -357,13 +343,14 @@ void SetWait7RC(void){
 
 void EXTI0_1_IRQHandler(void) {
     // Check if the interrupt was triggered by PA0
-    if (EXTI->PR & EXTI_PR_PR0) {
+    if ((EXTI->PR & EXTI_PR_PR0) == EXTI_PR_PR0) {
         killSwitchFlagRE = 1;
     }
 
     // Clear the EXTI0 pending flag
-    EXTI->PR = EXTI_PR_PR0;
+    EXTI->PR |= EXTI_PR_PR0;
 }
+
 
 int debounceSwitch(int pin){
 	int currPin = 0;
@@ -404,6 +391,7 @@ void EXTI_Init(void) {
     NVIC_SetPriority(EXTI0_1_IRQn, 0); // Set priority to 0
     NVIC_EnableIRQ(EXTI0_1_IRQn);
 }
+
 
 float Avg_and_remove_outliers_V_Supply (void){
 

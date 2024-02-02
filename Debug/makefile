@@ -34,34 +34,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := PreCharge_Taxi_MotorController_HVAC
+BUILD_ARTIFACT_NAME := PreCharge_stm32f0
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-PreCharge_Taxi_MotorController_HVAC.elf \
+PreCharge_stm32f0.elf \
 
 MAP_FILES += \
-PreCharge_Taxi_MotorController_HVAC.map \
+PreCharge_stm32f0.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-PreCharge_Taxi_MotorController_HVAC.list \
+PreCharge_stm32f0.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: PreCharge_Taxi_MotorController_HVAC.elf secondary-outputs
+main-build: PreCharge_stm32f0.elf secondary-outputs
 
 # Tool invocations
-PreCharge_Taxi_MotorController_HVAC.elf PreCharge_Taxi_MotorController_HVAC.map: $(OBJS) $(USER_OBJS) C:\Users\91742\STM32CubeIDE\Vayve\ Mobility\PreCharge_Taxi_MotorController_HVAC\STM32F072RBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "PreCharge_Taxi_MotorController_HVAC.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\Users\91742\STM32CubeIDE\Vayve Mobility\PreCharge_Taxi_MotorController_HVAC\STM32F072RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PreCharge_Taxi_MotorController_HVAC.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+PreCharge_stm32f0.elf PreCharge_stm32f0.map: $(OBJS) $(USER_OBJS) C:\Users\91742\STM32CubeIDE\Vayve\ Mobility\PreCharge_stm32f0\STM32F072RBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "PreCharge_stm32f0.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\Users\91742\STM32CubeIDE\Vayve Mobility\PreCharge_stm32f0\STM32F072RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PreCharge_stm32f0.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -70,14 +70,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-PreCharge_Taxi_MotorController_HVAC.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "PreCharge_Taxi_MotorController_HVAC.list"
+PreCharge_stm32f0.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "PreCharge_stm32f0.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) PreCharge_Taxi_MotorController_HVAC.elf PreCharge_Taxi_MotorController_HVAC.list PreCharge_Taxi_MotorController_HVAC.map default.size.stdout
+	-$(RM) PreCharge_stm32f0.elf PreCharge_stm32f0.list PreCharge_stm32f0.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
